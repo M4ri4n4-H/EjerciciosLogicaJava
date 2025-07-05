@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class TriquiMedio {
 
-    public static void limpiarTablero(char[][] tablero){
-        for(int i = 0; i<3;i++){
-            for(int j= 0; j<3;j++){
+    public static void limpiarTablero(char[][] tablero) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
                 tablero[i][j] = ' ';
             }
         }
@@ -17,7 +17,7 @@ public class TriquiMedio {
             int fila = jugada[0];
             int columna = jugada[1];
             char original = tablero[fila][columna];
-            if(!paralelo[fila][columna]){
+            if (!paralelo[fila][columna]) {
                 tablero[fila][columna] = 'O';
             }
             if (hayVictoria(tablero)) {
@@ -36,7 +36,7 @@ public class TriquiMedio {
             int fila = jugada[0];
             int columna = jugada[1];
             char original = tablero[fila][columna];
-            if(!paralelo[fila][columna]){
+            if (!paralelo[fila][columna]) {
                 tablero[fila][columna] = 'X';
             }
             if (hayVictoria(tablero)) {
@@ -76,18 +76,16 @@ public class TriquiMedio {
 
     public static boolean hayVictoria(char[][] tablero) {
         for (int i = 0; i < tablero.length; i++) {
-            if (tablero[i][0] == 'X' && tablero[i][1] == 'X' && tablero[i][2]=='X') {
+            if (tablero[i][0] == 'X' && tablero[i][1] == 'X' && tablero[i][2] == 'X') {
                 return true;
-            }
-            else if(tablero[i][0] == 'O' && tablero[i][1] == 'O' && tablero[i][2]=='O'){
+            } else if (tablero[i][0] == 'O' && tablero[i][1] == 'O' && tablero[i][2] == 'O') {
                 return true;
             }
         }
         for (int j = 0; j < tablero.length; j++) {
-            if (tablero[0][j] == 'X' && tablero[1][j] == 'X' && tablero[2][j]== 'X') {
+            if (tablero[0][j] == 'X' && tablero[1][j] == 'X' && tablero[2][j] == 'X') {
                 return true;
-            }
-            else if (tablero[0][j] == 'O' && tablero[1][j] == 'O' && tablero[2][j]== 'O') {
+            } else if (tablero[0][j] == 'O' && tablero[1][j] == 'O' && tablero[2][j] == 'O') {
                 return true;
             }
         }
@@ -96,11 +94,9 @@ public class TriquiMedio {
         }
         if (tablero[0][0] == 'O' && tablero[1][1] == 'O' && tablero[2][2] == 'O') {
             return true;
-        }
-        else if (tablero[0][2] == 'X' && tablero[1][1] == 'X' && tablero[2][0] == 'X') {
+        } else if (tablero[0][2] == 'X' && tablero[1][1] == 'X' && tablero[2][0] == 'X') {
             return true;
-        }
-        else if (tablero[0][2] == 'O' && tablero[1][1] == 'O' && tablero[2][0] == 'O') {
+        } else if (tablero[0][2] == 'O' && tablero[1][1] == 'O' && tablero[2][0] == 'O') {
             return true;
         }
         return false;
@@ -147,7 +143,7 @@ public class TriquiMedio {
 
         System.out.println("¡Bienvenido! Este es una versión consola de Triqui o Tres en Raya");
         System.out.println(
-                "Las casillas estan numeradas del 1 al 9. \n Elije la posición que desees ingresando dicho indice correspondiente. ");
+                "Las casillas estan numeradas del 1 al 9. \n Elije la posición que desees ingresando el índice correspondiente. ");
         System.out.println("Tu contrincante va a ser un bot, el nivel: medio.\n ¡Mucha suerte!");
         System.out.println("Así se ve el tablero:");
 
@@ -168,6 +164,14 @@ public class TriquiMedio {
                         eleccion = sc.nextInt();
                     } catch (Exception ex) {
                         System.out.println("¡Ingresa un valor númerico entre 1 y 9 por favor!");
+                    }
+                    while (true) {
+                        if (eleccion < 1 || eleccion > 9) {
+                            System.out.println("¡Ingresa un valor válido!");
+                            eleccion = sc.nextInt();
+                        } else {
+                            break;
+                        }
                     }
                     int[] coordenadas = devolverPosicion(eleccion);
                     int fila = coordenadas[0];

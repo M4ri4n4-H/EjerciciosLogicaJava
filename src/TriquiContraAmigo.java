@@ -1,9 +1,6 @@
-//turno jugador debe alternar quien juega
-//el tablero estara ordenado del 1 al 9 para facilidad del usuario
-
 import java.util.Scanner;
 
-public class TresEnRaya {
+public class TriquiContraAmigo {
 
     public static void limpiarTablero(char[][] tablero) {
         for (int i = 0; i < 3; i++) {
@@ -80,23 +77,22 @@ public class TresEnRaya {
 
         int aux = 1;
 
-        System.out.println("¡Bienvenido! Este es una versión consola de Triqui o Tres en Raya");
+        System.out.println("¡Bienvenidos! Este es una versión consola de Triqui o Tres en Raya");
         System.out.println(
-                "Las casillas estan numeradas del 1 al 9. \n Elije la posición que desees ingresando el índice correspondiente. ");
-        System.out.println("Tu contrincante va a ser un bot, el nivel: fácil.\n ¡Mucha suerte!");
+                "Las casillas estan numeradas del 1 al 9. \n Elijan la posición que deseen ingresando el índice correspondiente. ");
+        System.out.println("¡Mucha suerte!");
         System.out.println("Así se ve el tablero:");
 
         imprimirTablero(triqui);
         limpiarTablero(triqui);
 
         Scanner sc = new Scanner(System.in);
-        int eleccionRandom = (int) ((Math.random() * 9) + 1);
 
         while (aux < 10) {
 
             if (turnoJugador) {
                 while (true) {
-                    System.out.println("Elije tu jugada, ingresa la posición:");
+                    System.out.println("Jugador 1, ingresa tu jugada:");
                     int eleccion = 0;
                     try {
                         eleccion = sc.nextInt();
@@ -111,7 +107,6 @@ public class TresEnRaya {
                             break;
                         }
                     }
-
                     int[] coordenadas = devolverPosicion(eleccion);
                     int fila = coordenadas[0];
                     int columna = coordenadas[1];
@@ -124,15 +119,29 @@ public class TresEnRaya {
                         eleccion = sc.nextInt();
                     }
                 }
-                System.out.println("Tu elección");
+                System.out.println("Elección del jugador 1:");
                 imprimirTablero(triqui);
                 aux++;
             }
 
             else if (!turnoJugador) {
                 while (true) {
-                    eleccionRandom = (int) ((Math.random() * 9) + 1);
-                    int[] coordenadas = devolverPosicion(eleccionRandom);
+                    System.out.println("Jugador 2, ingresa tu jugada:");
+                    int eleccion = 0;
+                    try {
+                        eleccion = sc.nextInt();
+                    } catch (Exception ex) {
+                        System.out.println("¡Ingresa un valor númerico entre 1 y 9 por favor!");
+                    }
+                   while (true) {
+                        if (eleccion < 1 || eleccion > 9) {
+                            System.out.println("¡Ingresa un valor válido!");
+                            eleccion = sc.nextInt();
+                        } else {
+                            break;
+                        }
+                    }
+                    int[] coordenadas = devolverPosicion(eleccion);
                     int fila = coordenadas[0];
                     int columna = coordenadas[1];
                     if (!lleno[fila][columna]) {
@@ -140,19 +149,20 @@ public class TresEnRaya {
                         lleno[fila][columna] = true;
                         break;
                     } else {
-                        eleccionRandom = (int) ((Math.random() * 9) + 1);
+                        System.out.println("Esa posición ya esta ocupada. Elije otra: ");
+                        eleccion = sc.nextInt();
                     }
                 }
-                System.out.println("Elección del bot");
+                System.out.println("Elección del jugador 2:");
                 imprimirTablero(triqui);
                 aux++;
             }
             turnoJugador = !turnoJugador;
             if (hayVictoria(triqui)) {
                 if (!turnoJugador) {
-                    System.out.println("¡Felicidades tú ganaste esta ronda!");
+                    System.out.println("¡Felicidades jugador 1, ganaste!");
                 } else {
-                    System.out.println("¡Te ganaron! ¡Mejor suerte la próxima!");
+                    System.out.println("¡Felicidades jugador 2, ganaste!");
                 }
                 break;
             }
