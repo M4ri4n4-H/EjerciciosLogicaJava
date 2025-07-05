@@ -15,27 +15,22 @@ public class TresEnRaya {
 
     public static boolean hayVictoria(char[][] tablero) {
         for (int i = 0; i < tablero.length; i++) {
-            if (tablero[i][0] == 'X' && tablero[i][1] == 'X' && tablero[i][2] == 'X') {
-                return true;
-            } else if (tablero[i][0] == 'O' && tablero[i][1] == 'O' && tablero[i][2] == 'O') {
+            if (tablero[i][0] == 'X' && tablero[i][1] == 'X' && tablero[i][2] == 'X'
+                    || tablero[i][0] == 'O' && tablero[i][1] == 'O' && tablero[i][2] == 'O') {
                 return true;
             }
         }
         for (int j = 0; j < tablero.length; j++) {
-            if (tablero[0][j] == 'X' && tablero[1][j] == 'X' && tablero[2][j] == 'X') {
-                return true;
-            } else if (tablero[0][j] == 'O' && tablero[1][j] == 'O' && tablero[2][j] == 'O') {
+            if (tablero[0][j] == 'X' && tablero[1][j] == 'X' && tablero[2][j] == 'X'
+                    || tablero[0][j] == 'O' && tablero[1][j] == 'O' && tablero[2][j] == 'O') {
                 return true;
             }
         }
-        if (tablero[0][0] == 'X' && tablero[1][1] == 'X' && tablero[2][2] == 'X') {
+        if (tablero[0][0] == 'X' && tablero[1][1] == 'X' && tablero[2][2] == 'X'
+                || tablero[0][0] == 'O' && tablero[1][1] == 'O' && tablero[2][2] == 'O') {
             return true;
-        }
-        if (tablero[0][0] == 'O' && tablero[1][1] == 'O' && tablero[2][2] == 'O') {
-            return true;
-        } else if (tablero[0][2] == 'X' && tablero[1][1] == 'X' && tablero[2][0] == 'X') {
-            return true;
-        } else if (tablero[0][2] == 'O' && tablero[1][1] == 'O' && tablero[2][0] == 'O') {
+        } else if (tablero[0][2] == 'X' && tablero[1][1] == 'X' && tablero[2][0] == 'X'
+                || tablero[0][2] == 'O' && tablero[1][1] == 'O' && tablero[2][0] == 'O') {
             return true;
         }
         return false;
@@ -103,7 +98,7 @@ public class TresEnRaya {
                     } catch (Exception ex) {
                         System.out.println("¡Ingresa un valor númerico entre 1 y 9 por favor!");
                     }
-                   while (true) {
+                    while (true) {
                         if (eleccion < 1 || eleccion > 9) {
                             System.out.println("¡Ingresa un valor válido!");
                             eleccion = sc.nextInt();
