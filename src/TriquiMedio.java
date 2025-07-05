@@ -1,30 +1,95 @@
-//turno jugador debe alternar quien juega
-//el tablero estara ordenado del 1 al 9 para facilidad del usuario
-
 import java.util.Scanner;
 
-public class TresEnRaya {
+public class TriquiMedio {
 
-    public static void limpiarTablero(char[][] tablero) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+    public static void limpiarTablero(char[][] tablero){
+        for(int i = 0; i<3;i++){
+            for(int j= 0; j<3;j++){
                 tablero[i][j] = ' ';
             }
         }
     }
 
+    public static int[] sePuedeGanar(char[][] tablero, boolean[][] paralelo) {
+        int[] jugada = new int[2];
+        for (int i = 1; i <= 9; i++) {
+            int num = (int) ((Math.random() * 9) + 1);
+            jugada = devolverPosicion(num);
+            int fila = jugada[0];
+            int columna = jugada[1];
+            char original = tablero[fila][columna];
+            if(!paralelo[fila][columna]){
+                tablero[fila][columna] = 'O';
+            }
+            if (hayVictoria(tablero)) {
+                tablero[fila][columna] = original;
+                return jugada;
+            }
+            tablero[fila][columna] = original;
+        }
+        return null;
+    }
+
+    public static int[] hayQuebloquear(char[][] tablero, boolean[][] paralelo) {
+        int[] jugada = new int[2];
+        for (int i = 1; i <= 9; i++) {
+            int num = (int) ((Math.random() * 9) + 1);
+            jugada = devolverPosicion(num);
+            int fila = jugada[0];
+            int columna = jugada[1];
+            char original = tablero[fila][columna];
+            if(!paralelo[fila][columna]){
+                tablero[fila][columna] = 'X';
+            }
+            if (hayVictoria(tablero)) {
+                tablero[fila][columna] = original;
+                return jugada;
+            }
+            tablero[fila][columna] = original;
+        }
+        return null;
+    }
+
+    public static int[] alAzar(char[][] tablero, boolean[][] paralelo) {
+        int[] jugada = new int[2];
+        while (true) {
+            int num = (int) ((Math.random() * 9) + 1);
+            jugada = devolverPosicion(num);
+            int fila = jugada[0];
+            int columna = jugada[1];
+            if (!paralelo[fila][columna]) {
+                break;
+            }
+        }
+        return jugada;
+    }
+
+    public static int[] jugadaFinal(char[][] tablero, boolean[][] paralelo) {
+        int[] jugada = sePuedeGanar(tablero, paralelo);
+        if (jugada != null) {
+            return jugada;
+        }
+        jugada = hayQuebloquear(tablero, paralelo);
+        if (jugada != null) {
+            return jugada;
+        }
+        return jugada = alAzar(tablero, paralelo);
+    }
+
     public static boolean hayVictoria(char[][] tablero) {
         for (int i = 0; i < tablero.length; i++) {
-            if (tablero[i][0] == 'X' && tablero[i][1] == 'X' && tablero[i][2] == 'X') {
+            if (tablero[i][0] == 'X' && tablero[i][1] == 'X' && tablero[i][2]=='X') {
                 return true;
-            } else if (tablero[i][0] == 'O' && tablero[i][1] == 'O' && tablero[i][2] == 'O') {
+            }
+            else if(tablero[i][0] == 'O' && tablero[i][1] == 'O' && tablero[i][2]=='O'){
                 return true;
             }
         }
         for (int j = 0; j < tablero.length; j++) {
-            if (tablero[0][j] == 'X' && tablero[1][j] == 'X' && tablero[2][j] == 'X') {
+            if (tablero[0][j] == 'X' && tablero[1][j] == 'X' && tablero[2][j]== 'X') {
                 return true;
-            } else if (tablero[0][j] == 'O' && tablero[1][j] == 'O' && tablero[2][j] == 'O') {
+            }
+            else if (tablero[0][j] == 'O' && tablero[1][j] == 'O' && tablero[2][j]== 'O') {
                 return true;
             }
         }
@@ -33,9 +98,11 @@ public class TresEnRaya {
         }
         if (tablero[0][0] == 'O' && tablero[1][1] == 'O' && tablero[2][2] == 'O') {
             return true;
-        } else if (tablero[0][2] == 'X' && tablero[1][1] == 'X' && tablero[2][0] == 'X') {
+        }
+        else if (tablero[0][2] == 'X' && tablero[1][1] == 'X' && tablero[2][0] == 'X') {
             return true;
-        } else if (tablero[0][2] == 'O' && tablero[1][1] == 'O' && tablero[2][0] == 'O') {
+        }
+        else if (tablero[0][2] == 'O' && tablero[1][1] == 'O' && tablero[2][0] == 'O') {
             return true;
         }
         return false;
@@ -83,10 +150,11 @@ public class TresEnRaya {
         System.out.println("¡Bienvenido! Este es una versión consola de Triqui o Tres en Raya");
         System.out.println(
                 "Las casillas estan numeradas del 1 al 9. \n Elije la posición que desees ingresando dicho indice correspondiente. ");
-        System.out.println("Tu contrincante va a ser un bot, el nivel: fácil.\n ¡Mucha suerte!");
+        System.out.println("Tu contrincante va a ser un bot, el nivel: medio.\n ¡Mucha suerte!");
         System.out.println("Así se ve el tablero:");
 
         imprimirTablero(triqui);
+
         limpiarTablero(triqui);
 
         Scanner sc = new Scanner(System.in);
@@ -121,19 +189,11 @@ public class TresEnRaya {
             }
 
             else if (!turnoJugador) {
-                while (true) {
-                    eleccionRandom = (int) ((Math.random() * 9) + 1);
-                    int[] coordenadas = devolverPosicion(eleccionRandom);
-                    int fila = coordenadas[0];
-                    int columna = coordenadas[1];
-                    if (!lleno[fila][columna]) {
-                        triqui[fila][columna] = 'O';
-                        lleno[fila][columna] = true;
-                        break;
-                    } else {
-                        eleccionRandom = (int) ((Math.random() * 9) + 1);
-                    }
-                }
+                int[] coordenadas = jugadaFinal(triqui, lleno);
+                int fila = coordenadas[0];
+                int columna = coordenadas[1];
+                triqui[fila][columna] = 'O';
+                lleno[fila][columna] = true;
                 System.out.println("Elección del bot");
                 imprimirTablero(triqui);
                 aux++;
