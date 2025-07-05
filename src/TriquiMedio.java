@@ -13,8 +13,7 @@ public class TriquiMedio {
     public static int[] sePuedeGanar(char[][] tablero, boolean[][] paralelo) {
         int[] jugada = new int[2];
         for (int i = 1; i <= 9; i++) {
-            int num = (int) ((Math.random() * 9) + 1);
-            jugada = devolverPosicion(num);
+            jugada = devolverPosicion(i);
             int fila = jugada[0];
             int columna = jugada[1];
             char original = tablero[fila][columna];
@@ -33,8 +32,7 @@ public class TriquiMedio {
     public static int[] hayQuebloquear(char[][] tablero, boolean[][] paralelo) {
         int[] jugada = new int[2];
         for (int i = 1; i <= 9; i++) {
-            int num = (int) ((Math.random() * 9) + 1);
-            jugada = devolverPosicion(num);
+            jugada = devolverPosicion(i);
             int fila = jugada[0];
             int columna = jugada[1];
             char original = tablero[fila][columna];
@@ -150,7 +148,7 @@ public class TriquiMedio {
         System.out.println("¡Bienvenido! Este es una versión consola de Triqui o Tres en Raya");
         System.out.println(
                 "Las casillas estan numeradas del 1 al 9. \n Elije la posición que desees ingresando dicho indice correspondiente. ");
-        System.out.println("Tu contrincante va a ser un bot, el nivel: medio.\n ¡Mucha suerte!");
+        System.out.println("Tu contrincante va a ser un bot, el nivel: .\n ¡Mucha suerte!");
         System.out.println("Así se ve el tablero:");
 
         imprimirTablero(triqui);
